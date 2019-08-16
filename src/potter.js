@@ -62,6 +62,7 @@ function calculateCost(books) {
   return totalPrice;
 }
 
+// todo: split the books combination to multiple parts so the optimum discount can be applied
 function calculateBestPrice(books) {
   const combinationArray = combinations(books.slice(0));
   let bestPrice = Number.POSITIVE_INFINITY;
@@ -75,9 +76,6 @@ function calculateBestPrice(books) {
   }
   return bestPrice;
 }
-
-console.log(calculateBestPrice([1, 1, 2, 2, 3, 3, 4, 5]));
-
 
 module.exports = {
   calculateBestPrice,
