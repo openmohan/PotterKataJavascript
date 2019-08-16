@@ -49,6 +49,33 @@ function combinations(set) {
   return combs;
 }
 
+function differenceArray(a1, a2) {
+  const a = []; const
+    diff = [];
+
+  for (let i = 0; i < a1.length; i++) {
+    if (a[a1[i]]) {
+      a[a1[i]]++;
+    } else {
+      a[a1[i]] = 1;
+    }
+  }
+
+  for (let i = 0; i < a2.length; i++) {
+    if (a[a2[i]] > 0) {
+      a[a2[i]]--;
+    }
+  }
+
+  for (let k = 0; k < a.length; k++) {
+    if (a[k]) {
+      diff.push(k);
+    }
+  }
+
+  return diff;
+}
+
 module.exports = {
-  combinations,
+  combinations, differenceArray,
 };

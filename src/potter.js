@@ -1,3 +1,5 @@
+const { combinations, differenceArray } = require('./utils/combinations');
+
 const price = 8;
 
 const discount = [1, 0.95, 0.9, 0.8, 0.75];
@@ -57,12 +59,26 @@ function calculateCost(books) {
     });
     totalPrice += min * discount[count - 1] * price * count;
   } while (isBooksRemaining(booksArray));
-
   return totalPrice;
 }
 
-console.log(calculateCost([1, 2]));
+function calculateBestPrice(books) {
+  const combinationArray = combinations(books.slice(0));
+  let bestPrice = Number.POSITIVE_INFINITY;
+  for (let i = 0; i < combinationArray.length; i++) {
+    const diff = differenceArray(books.slice(0), combinationArray[i].slice(0));
+    const newPrice = calculateCost(combinationArray[i].slice(0))
+            + (calculateCost(diff.slice(0)) || 0);
+    if (newPrice < bestPrice && combinationArray[i].length + diff.length === books.length) {
+      bestPrice = newPrice;
+    }
+  }
+  return bestPrice;
+}
+
+console.log(calculateBestPrice([1, 1, 2, 2, 3, 3, 4, 5]));
+
 
 module.exports = {
-  calculateCost,
+  calculateBestPrice,
 };
